@@ -11,16 +11,17 @@ bool explore(const vector<vector<int>> &adj, unordered_set<int> &visited, int v)
 	visited.insert(v);
 	bool hasCycle = false;
 
-	if (visited.find(v) == visited.end()) {
-		for (size_t i = 0; i < size; i++) {
+	for (size_t i = 0; i < size; i++) {
+		if (visited.find(adj[v][i]) == visited.end()) {
 			hasCycle = explore(adj, visited, adj[v][i]);
 		}
-	}
-	else {
-		return true;
-	}
+		else {
+			hasCycle = true;
+		}
+	}	
 
-	return hasCycle || false;
+	visited.erase(v);
+	return hasCycle;
 }
 
 int acyclic(vector<vector<int> > &adj) {
