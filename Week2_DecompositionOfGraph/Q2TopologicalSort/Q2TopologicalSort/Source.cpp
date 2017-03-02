@@ -4,9 +4,18 @@
 
 using std::vector;
 using std::pair;
+using std::find;
 
 void dfs(vector<vector<int> > &adj, vector<int> &used, vector<int> &order, int x) {
-	
+	int size = adj[x].size();
+
+	order.push_back(x);
+	used.push_back(x);
+	for (size_t i = 0; i < size; i++) {
+		if (find(used.begin(), used.end(), adj[x][i]) == used.end()) {
+			dfs(adj, used, order, adj[x][i]);
+		}
+	}
 }
 
 vector<int> toposort(vector<vector<int> > adj) {
