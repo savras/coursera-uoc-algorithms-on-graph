@@ -7,15 +7,14 @@ using std::pair;
 using std::find;
 
 void dfs(vector<vector<int> > &adj, vector<int> &used, vector<int> &order, int x) {
-	int size = adj[x].size();
-
-	order.push_back(x);
-	used.push_back(x);
-	for (size_t i = 0; i < size; i++) {
-		if (find(used.begin(), used.end(), adj[x][i]) == used.end()) {
+	if (used[x] == 0) {
+		int size = adj[x].size();
+		used[x] = 1;
+		for (size_t i = 0; i < size; i++) {			
 			dfs(adj, used, order, adj[x][i]);
 		}
-	}
+		order.push_back(x);
+	}	
 }
 
 vector<int> toposort(vector<vector<int> > adj) {
@@ -32,7 +31,7 @@ vector<int> toposort(vector<vector<int> > adj) {
 int main() {
 	size_t n, m;
 	std::cin >> n >> m;
-	vector<vector<int> > adj(n, vector<int>());
+	vector<vector<int>> adj(n, vector<int>());
 	for (size_t i = 0; i < m; i++) {
 		int x, y;
 		std::cin >> x >> y;
