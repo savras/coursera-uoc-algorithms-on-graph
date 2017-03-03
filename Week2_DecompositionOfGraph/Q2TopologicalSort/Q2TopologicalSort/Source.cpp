@@ -38,7 +38,7 @@ int main() {
 		adj[x - 1].push_back(y - 1);
 	}
 	vector<int> order = toposort(adj);
-	for (size_t i = 0; i < order.size(); i++) {
+	for (int i = order.size() - 1; i >= 0 ; i--) {
 		std::cout << order[i] + 1 << " ";
 	}
 }
