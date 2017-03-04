@@ -1,3 +1,4 @@
+// This solution seems to give a valid topological sort based on https://en.wikipedia.org/wiki/Topological_sorting#Depth-first_search
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -7,6 +8,8 @@ using std::pair;
 using std::find;
 
 void dfs(vector<vector<int> > &adj, vector<int> &used, vector<int> &order, int x) {
+
+	// Guaranteed acyclic so we don't need to optimize using a temporary visited list (See Q1 solution).
 	if (used[x] == 0) {
 		int size = adj[x].size();
 		used[x] = 1;
