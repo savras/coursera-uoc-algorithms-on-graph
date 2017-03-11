@@ -27,7 +27,7 @@ int distance(const vector<vector<int>> &adj, const int &s, const int &t) {
 		}
 	}	
 
-	return dist[t];
+	return dist[t] == INT_MAX ? -1 : dist[t];
 }
 
 int main() {
