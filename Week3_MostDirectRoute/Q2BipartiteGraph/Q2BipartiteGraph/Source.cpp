@@ -7,30 +7,29 @@ using std::queue;
 
 int bipartite(const vector<vector<int>> &adj) {
 	int adjSize = adj.size();
-	vector<int> color(adjSize, -1);
+	vector<int> color(adjSize, 0);
 	queue<int> q;
 
 	q.emplace(0);
 	color[0] = 1;
-
-	bool bipartiteState = 0;	// This will flip for each alternating neighbour
+	int bipartiteState = -1;	// This will flip for each alternating neighbour
 	while (!q.empty()) {
 		int u = q.front();
 		q.pop();
 
 		for (size_t i = 0; i < adj[u].size(); i++) {
 			int v = adj[u][i];
-			if (color[v] == -1) {
+			if (color[v] == 0) {
 				q.emplace(adj[u][i]);
 				color[v] = bipartiteState;
 			}
 			else {
-				if (color[v] != bipartiteState) {
+				if (color[v] == color[u]) {
 					return 0;
 				}
 			}
 		}
-		bipartiteState = !bipartiteState;
+		bipartiteState *= -1;
 	}
 
 	return 1;
