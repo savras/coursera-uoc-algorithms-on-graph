@@ -1,3 +1,7 @@
+/*
+ * This solution doesn't handle isolated or island nodes.
+ * To do so, we need to loop through all of adj.
+ */
 #include <iostream>
 #include <vector>
 #include <queue>
