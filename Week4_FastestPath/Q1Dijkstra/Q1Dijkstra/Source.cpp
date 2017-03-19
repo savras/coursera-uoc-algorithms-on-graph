@@ -49,7 +49,7 @@ int distance(const vector<vector<int>> &adj, const vector<vector<int>> &cost, co
 		}
 	}	
 
-	int result = dist[t] == INT_MIN ? -1 : dist[t];
+	int result = dist[t] == INT_MAX ? -1 : dist[t];
 	return result;	
 }
 
