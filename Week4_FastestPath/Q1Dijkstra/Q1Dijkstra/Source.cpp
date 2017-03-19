@@ -1,42 +1,56 @@
+/*
+ * Priority Queues - Min Heap with STL: 
+ * http://stackoverflow.com/questions/649640/how-to-do-an-efficient-priority-update-in-stl-priority-queue
+ * http://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-using-priority_queue-stl/
+ * http://quiz.geeksforgeeks.org/implement-min-heap-using-stl/
+ */
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <utility>
+#include <functional>
 
 using std::vector;
 using std::queue;
 using std::pair;
 using std::priority_queue;
 using std::make_pair;
+using std::greater;
+
+int extractMin(priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> &H) {
+	pair<int,int> minPair = H.top();
+	H.pop();
+
+	return minPair.second;
+}
 
 int distance(const vector<vector<int>> &adj, const vector<vector<int>> &cost, const int &s, const int &t) {
 	int size = adj.size();
 	vector<int> dist(size, INT_MAX);
 	vector<int> prev(size, -1);
-	priority_queue<pair<int, int>> q;
+
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> H;	// Holds nodes NOT in the known region.
 
 	dist[s] = 0;
+	pair<int, int> ps = make_pair(dist[s], s);
+	H.push(ps);	
+
 	pair<int, int> u;
+	while (!H.empty()) {
+		int u = extractMin(H);		
 
-	pair<int, int> ps = make_pair(s, dist[s]);
-	q.push(ps);	
-
-	while (!q.empty()) {
-		u = q.top();
-		q.pop();
-
-		for (size_t i = 0; i < adj[u.first].size(); i++) {
-			int v = adj[u.first][i];
-			int d = dist[u.first] + cost[u.first][i];
-			if (dist[adj[u.first][i]] > d) {
-				dist[adj[u.first][i]] = d;
-			}
-			q.emplace(make_pair(adj[u.first][i], d));
+		for (size_t i = 0; i < adj[u].size(); i++) {
+			int v = adj[u][i];
+			int d = dist[u] + cost[u][v];
+			if (dist[v] > d) {
+				dist[v] = d;
+				prev[v] = u;
+				H.push(make_pair(dist[v], v));				
+			}			
 		}
 	}	
 
-	return 0;
-	
+	int result = dist[t] == INT_MIN ? -1 : dist[t];
+	return result;	
 }
 
 int main() {
