@@ -40,7 +40,7 @@ int distance(const vector<vector<int>> &adj, const vector<vector<int>> &cost, co
 
 		for (size_t i = 0; i < adj[u].size(); i++) {
 			int v = adj[u][i];
-			int d = dist[u] + cost[u][v];
+			int d = dist[u] + cost[u][i];
 			if (dist[v] > d) {
 				dist[v] = d;
 				prev[v] = u;
