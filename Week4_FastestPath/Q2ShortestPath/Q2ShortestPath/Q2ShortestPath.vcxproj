@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8470B609-FBFD-4393-8EEB-50ED42B5FAD5}</ProjectGuid>
+    <ProjectGuid>{01B4B8AA-B86B-40CE-8B8A-91AFE9BA82EF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Q2FreeMoney</RootNamespace>
+    <RootNamespace>Q2ShortestPath</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -142,7 +142,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
