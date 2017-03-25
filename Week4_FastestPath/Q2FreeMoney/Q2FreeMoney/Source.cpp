@@ -3,12 +3,22 @@
 
 using std::vector;
 
-int negative_cycle(const vector<vector<int> > &adj, const vector<vector<int> > &cost) {
+// Assume no negative cycle for now.
+int negative_cycle(const vector<vector<int>> &adj, const vector<vector<int>> &cost) {
 	int size = adj.size();
-	vector<int> dest(size, INT_MAX);
-	vector<int> prev(size, INT_MAX);
+	vector<int> dist(size, INT_MAX);
+	vector<int> prev(size, 0);
 
-	dest[0] = 0;
+	dist[0] = 0;
+
+	for (size_t u = 0; u < cost.size() - 1; u++) {
+		for (size_t v = 0; v < cost[u].size() - v; v++) {
+			int distance = dist[u] + cost[u][v];
+			if (dist[v] > distance) {
+				dist[v] = distance;
+			}
+		}
+	}
 
 	return 0;
 }
