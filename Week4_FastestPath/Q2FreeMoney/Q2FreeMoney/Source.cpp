@@ -3,24 +3,31 @@
 
 using std::vector;
 
-// Assume no negative cycle for now.
 int negative_cycle(const vector<vector<int>> &adj, const vector<vector<int>> &cost) {
 	int size = adj.size();
 	vector<int> dist(size, INT_MAX);
 	vector<int> prev(size, 0);
 
 	dist[0] = 0;
+	int hasNegativeCycle = 0;
 
-	for (size_t u = 0; u < cost.size() - 1; u++) {
-		for (size_t v = 0; v < cost[u].size() - v; v++) {
-			int distance = dist[u] + cost[u][v];
-			if (dist[v] > distance) {
-				dist[v] = distance;
+	for (size_t i = 0; i < size; i++) {
+		// Relax all edges. Each entry in cost array is an edge weight and is therefore an edge.
+		for (size_t u = 0; u < cost.size() - 1; u++) {
+			for (size_t v = 0; v < cost[u].size() - v; v++) {
+				int weight = dist[u] + cost[u][v];
+				if (dist[v] > weight) {
+					if (i == size) {
+						hasNegativeCycle = 1;
+					}
+					dist[v] = weight;
+				}
 			}
 		}
+
 	}
 
-	return 0;
+	return hasNegativeCycle;
 }
 
 int main() {
