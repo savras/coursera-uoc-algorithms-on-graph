@@ -6,10 +6,18 @@
 
 using std::vector;
 
-double length_of_segments() {
-
+double build_adj(vector<vector<int>> &adj, const vector<int> &x, const vector<int> &y) {
+	return 0.0;
 }
+
+double length_of_segments() {
+	return 0.0;
+}
+
 double minimum_distance(vector<int> x, vector<int> y) {
+	vector<vector<int>> adj;
+	build_adj(adj, x, y);
+
 	double result = 0.;
 	//write your code here
 	return result;
