@@ -11,23 +11,24 @@ int negative_cycle(const vector<vector<int>> &adj, const vector<vector<int>> &co
 	dist[0] = 0;
 	int hasNegativeCycle = 0;
 
-	for (size_t i = 0; i < size; i++) {
+	//Loop V times (as opposed to V - 1 to detect negative edge cycles)
+	for (size_t i = 0; i < size; i++) {		// O(|V|)
 		// Relax all edges. Each entry in cost array is an edge weight and is therefore an edge.
-		for (size_t u = 0; u < cost.size() - 1; u++) {
-			for (size_t v = 0; v < cost[u].size() - v; v++) {
+		for (size_t u = 0; u < cost.size() - 1; u++) {	// O(|E|)
+			for (size_t v = 0; v < cost[u].size(); v++) {
 				int weight = dist[u] + cost[u][v];
-				if (dist[v] > weight) {
-					if (i == size) {
-						hasNegativeCycle = 1;
+				if (dist[adj[u][v]] > weight) {
+					if (i == size -1) {
+						return 1;
 					}
-					dist[v] = weight;
+					dist[adj[u][v]] = weight;
+					prev[adj[u][v]] = u;
 				}
 			}
 		}
-
 	}
 
-	return hasNegativeCycle;
+	return 0;
 }
 
 int main() {
