@@ -3,8 +3,14 @@
 #include <iomanip>
 #include <vector>
 #include <cmath>
+#include <queue>
+#include <functional>
 
 using std::vector;
+using std::priority_queue;
+using std::pair;
+using std::make_pair;
+using std::greater;
 
 double build_adj(vector<vector<int>> &adj, const vector<int> &x, const vector<int> &y) {
 	return 0.0;
@@ -19,7 +25,12 @@ double minimum_distance(vector<int> x, vector<int> y) {
 	build_adj(adj, x, y);
 
 	double result = 0.;
-	//write your code here
+
+	vector<int> dist;
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> H;	// Holds nodes NOT in the known region.
+
+
+
 	return result;
 }
 
