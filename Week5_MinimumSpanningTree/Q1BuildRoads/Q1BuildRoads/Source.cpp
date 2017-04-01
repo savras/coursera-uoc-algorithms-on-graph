@@ -14,11 +14,11 @@ using std::make_pair;
 using std::greater;
 
 double length_of_segments(const int &p1, const int &p2, const vector<int> &x, const vector<int> &y) {
-	int weight = sqrt((x[p1] - x[p2]) + (y[p1] - y[p2]));
+	double weight = sqrt(pow((x[p1] - x[p2]), 2) + pow((y[p1] - y[p2]),2));
 	return weight;
 }
 
-void build_adj(vector<vector<double>> &cost, const vector<int> &x, const vector<int> &y) {
+void build_cost(vector<vector<double>> &cost, const vector<int> &x, const vector<int> &y) {
 	int size = x.size();
 	for (size_t i = 0; i < size; i++) {
 		for (size_t p = i + 1; p < size; p++) {
@@ -33,7 +33,7 @@ double minimum_distance_kruskal(vector<int> x, vector<int> y) {
 	return 0.0;
 }
 
-double calc_minimum_distance(const vector<int> &dist) {
+double calc_minimum_distance(const vector<double> &dist) {
 	double result = 0.0;
 	for (size_t i = 0; i < dist.size(); i++) {
 		result += dist[i];
@@ -46,24 +46,25 @@ double calc_minimum_distance(const vector<int> &dist) {
 double minimum_distance_prim(vector<int> x, vector<int> y) {
 	int size = x.size();
 	vector<vector<double>> cost(size, vector<double>(size, 0));
-	build_adj(cost, x, y);	
+	build_cost(cost, x, y);	
 	
-	vector<int> dist(size, INT_MAX);	
-	dist[0] = 0;
+	vector<double> dist(size, INT_MAX);	
+	dist[0] = 0.0;
 	
-	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> H;	// Min heap STL.
-	H.push(make_pair(0, 0));
+	priority_queue<pair<double, int>, vector<pair<double, int>>, greater<pair<double, int>>> H;	// Min heap STL.
+	H.push(make_pair(0.0, 0));
 	
 	while (!H.empty()) {
 		int u = H.top().second;	// vertex index is stored as second value.
 		H.pop();
 
-		int d = dist[u];
+		double d = dist[u];
 		for (size_t m = 0; m < size; m++) {
+			if (m == u) { continue; }
 			int v = m;
-			int c = cost[u][m];
+			double c = cost[u][m];
 			if (c < dist[v]) {
-				dist[v] = d;
+				dist[v] = c;
 				H.push(make_pair(c, v));
 			}
 		}
