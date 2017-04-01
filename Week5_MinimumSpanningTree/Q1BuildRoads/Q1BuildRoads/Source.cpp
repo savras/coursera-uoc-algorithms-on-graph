@@ -33,8 +33,13 @@ double minimum_distance_kruskal(vector<int> x, vector<int> y) {
 	return 0.0;
 }
 
-double calc_minimum_distance(const vector<int> &prev, const vector<vector<double>> &cost) {
-	return 0.0;
+double calc_minimum_distance(const vector<int> &dist) {
+	double result = 0.0;
+	for (size_t i = 0; i < dist.size(); i++) {
+		result += dist[i];
+	}
+
+	return result;
 }
 
 // Prim's using priority heap
@@ -43,7 +48,6 @@ double minimum_distance_prim(vector<int> x, vector<int> y) {
 	vector<vector<double>> cost(size, vector<double>(size, 0));
 	build_adj(cost, x, y);	
 	
-	vector<int> prev(size, 0);
 	vector<int> dist(size, INT_MAX);	
 	dist[0] = 0;
 	
@@ -65,7 +69,7 @@ double minimum_distance_prim(vector<int> x, vector<int> y) {
 		}
 	}
 
-	return calc_minimum_distance(prev, cost);
+	return calc_minimum_distance(dist);
 }
 
 int main() {
