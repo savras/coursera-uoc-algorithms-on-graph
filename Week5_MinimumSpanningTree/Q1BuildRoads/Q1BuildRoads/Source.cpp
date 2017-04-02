@@ -33,10 +33,10 @@ double minimum_distance_kruskal(vector<int> x, vector<int> y) {
 	return 0.0;
 }
 
-double calc_minimum_distance(const vector<double> &dist) {
+double calc_minimum_distance(vector<vector<double>> cost, const vector<int> &prev) {
 	double result = 0.0;
-	for (size_t i = 0; i < dist.size(); i++) {
-		result += dist[i];
+	for (size_t i = 1; i < prev.size(); i++) {
+		result += cost[prev[i]][i];
 	}
 
 	return result;
@@ -45,6 +45,8 @@ double calc_minimum_distance(const vector<double> &dist) {
 // Prim's using priority heap
 double minimum_distance_prim(vector<int> x, vector<int> y) {
 	int size = x.size();
+	vector<bool> primTreeSet(size, false);	// Vertices in the tree that the algorithm builds.
+	vector<int> prev(size, -1);	// parent of a vertex in MST.
 	vector<vector<double>> cost(size, vector<double>(size, 0));
 	build_cost(cost, x, y);	
 	
@@ -57,20 +59,21 @@ double minimum_distance_prim(vector<int> x, vector<int> y) {
 	while (!H.empty()) {
 		int u = H.top().second;	// vertex index is stored as second value.
 		H.pop();
+		primTreeSet[u] = true;
 
 		double d = dist[u];
-		for (size_t m = 0; m < size; m++) {
-			if (m == u) { continue; }
-			int v = m;
-			double c = cost[u][m];
+		for (size_t v = 0; v < size; v++) {
+			if (primTreeSet[v]) { continue; }
+			double c = cost[u][v];
 			if (c < dist[v]) {
 				dist[v] = c;
+				prev[v] = u;
 				H.push(make_pair(c, v));
 			}
 		}
 	}
 
-	return calc_minimum_distance(dist);
+	return calc_minimum_distance(cost, prev);
 }
 
 int main() {
