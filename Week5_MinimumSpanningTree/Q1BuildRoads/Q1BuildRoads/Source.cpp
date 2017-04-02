@@ -1,3 +1,8 @@
+/*
+ * Note that dist does not give the shortest distance for the MST. It is used in the algorithm
+ * to indicate the shortest edge from a vertex. To get the shorest path (all edge weight) we
+ * need to get the cost for all edges/paths in the parent array.
+ */
 #include <algorithm>
 #include <iostream>
 #include <iomanip>
