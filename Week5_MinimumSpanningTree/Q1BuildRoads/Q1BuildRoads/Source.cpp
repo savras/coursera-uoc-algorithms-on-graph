@@ -33,11 +33,6 @@ void build_cost(vector<vector<double>> &cost, const vector<int> &x, const vector
 	}
 }
 
-// Kruskal's
-double minimum_distance_kruskal(vector<int> x, vector<int> y) {
-	return 0.0;
-}
-
 double calc_minimum_distance(vector<vector<double>> cost, const vector<int> &prev) {
 	double result = 0.0;
 	for (size_t i = 1; i < prev.size(); i++) {
@@ -81,6 +76,21 @@ double minimum_distance_prim(vector<int> x, vector<int> y) {
 	return calc_minimum_distance(cost, prev);
 }
 
+
+// Kruskal's MST
+void explore(const vector<vector<int>> &adj, vector<int> &visited) {
+
+}
+
+void find(const vector<vector<int>> &visited) {
+
+}
+
+double minimum_distance_kruskal(vector<int> x, vector<int> y) {
+
+	return 0.0;
+}
+
 int main() {
 	size_t n;
 	std::cin >> n;
@@ -88,5 +98,6 @@ int main() {
 	for (size_t i = 0; i < n; i++) {
 		std::cin >> x[i] >> y[i];
 	}
-	std::cout << std::setprecision(10) << minimum_distance_prim(x, y) << std::endl;
+	//std::cout << std::setprecision(10) << minimum_distance_prim(x, y) << std::endl;
+	std::cout << std::setprecision(10) << minimum_distance_kruskal(x, y) << std::endl;
 }
