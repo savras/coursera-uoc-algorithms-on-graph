@@ -48,7 +48,7 @@ double minimum_distance_prim(vector<int> x, vector<int> y) {
 	vector<bool> primTreeSet(size, false);	// Vertices in the tree that the algorithm builds.
 	vector<int> prev(size, -1);	// parent of a vertex in MST.
 	vector<vector<double>> cost(size, vector<double>(size, 0));
-	build_cost(cost, x, y);	
+	build_cost(cost, x, y);
 	
 	vector<double> dist(size, INT_MAX);	
 	dist[0] = 0.0;
@@ -78,7 +78,7 @@ double minimum_distance_prim(vector<int> x, vector<int> y) {
 
 
 // Kruskal's MST
-void explore(const vector<vector<int>> &adj, vector<int> &visited) {
+void explore(const vector<vector<double>> &cost, vector<int> &visited, int i) {
 
 }
 
@@ -87,6 +87,14 @@ void find(const vector<vector<int>> &visited) {
 }
 
 double minimum_distance_kruskal(vector<int> x, vector<int> y) {
+	int size = x.size();
+	vector<int> visited(size);	
+	vector<vector<double>> cost(size, vector<double>(size, 0));
+	build_cost(cost, x, y);
+	
+	for (size_t i = 0; i < size; i++) {
+		explore(cost, visited, i);
+	}
 
 	return 0.0;
 }
