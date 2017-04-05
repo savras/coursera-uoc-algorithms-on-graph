@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <vector>
 #include <cmath>
+#include <set>
 #include <queue>
 #include <functional>
 
@@ -17,6 +18,7 @@ using std::pair;
 using std::sqrt;
 using std::make_pair;
 using std::greater;
+using std::set;
 
 double length_of_segments(const int &p1, const int &p2, const vector<int> &x, const vector<int> &y) {
 	double weight = sqrt(pow((x[p1] - x[p2]), 2) + pow((y[p1] - y[p2]),2));
@@ -76,25 +78,33 @@ double minimum_distance_prim(vector<int> x, vector<int> y) {
 	return calc_minimum_distance(cost, prev);
 }
 
-
 // Kruskal's MST
-void explore(const vector<vector<double>> &cost, vector<int> &visited, int i) {
+void make_set(vector<set<pair<int,int>>> &X, const vector<int> &x, const vector<int> &y) {
+	int size = x.size();
+	
+	for (size_t i = 0; i < size; i++) {
+		set<pair<int,int>> s;
+		s.insert(make_pair(x[i], y[i]));
+		X.push_back(s);
+	}
+}
+
+void find() {
 
 }
 
-void find(const vector<vector<int>> &visited) {
+void union_set() {
 
 }
 
 double minimum_distance_kruskal(vector<int> x, vector<int> y) {
 	int size = x.size();
-	vector<int> visited(size);	
+	vector<set<pair<int,int>>> X(size);
 	vector<vector<double>> cost(size, vector<double>(size, 0));
 	build_cost(cost, x, y);
 	
-	for (size_t i = 0; i < size; i++) {
-		explore(cost, visited, i);
-	}
+	make_set(X, x, y);
+	
 
 	return 0.0;
 }
