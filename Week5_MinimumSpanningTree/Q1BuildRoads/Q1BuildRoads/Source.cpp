@@ -11,6 +11,7 @@
 #include <set>
 #include <queue>
 #include <functional>
+#include "Edge.cpp"
 
 using std::vector;
 using std::priority_queue;
@@ -89,6 +90,14 @@ void make_set(vector<set<pair<int,int>>> &X, const vector<int> &x, const vector<
 	}
 }
 
+void build_sorted_cost(const vector<vector<double>> &cost, vector<Edge> &edges, vector<int> x, vector<int> y) {
+	for (size_t i = 0; i < x.size(); i++) {
+		for (size_t p = 0; p < x.size(); p++) {
+			edges.push_back(Edge(i, p, cost[i][p]));
+		}
+	}
+}
+
 void find() {
 
 }
@@ -99,12 +108,11 @@ void union_set() {
 
 double minimum_distance_kruskal(vector<int> x, vector<int> y) {
 	int size = x.size();
-	vector<set<pair<int,int>>> X(size);
+	vector<set<pair<int,int>>> X(size);	// Stores MST result.
 	vector<vector<double>> cost(size, vector<double>(size, 0));
-	build_cost(cost, x, y);
-	
-	make_set(X, x, y);
-	
+	vector<Edge> edges(size * size);
+	build_sorted_cost(cost, edges, x, y);	
+	make_set(X, x, y);	
 
 	return 0.0;
 }

@@ -19,7 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Edge.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C30E5917-D6EF-4C3D-9383-C60105D90FA4}</ProjectGuid>
