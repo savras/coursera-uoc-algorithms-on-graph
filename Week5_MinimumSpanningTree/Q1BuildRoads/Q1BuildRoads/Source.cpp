@@ -11,7 +11,7 @@
 #include <set>
 #include <queue>
 #include <functional>
-#include "Edge.cpp"
+#include "Edge.h"
 
 using std::vector;
 using std::priority_queue;
@@ -81,44 +81,59 @@ double minimum_distance_prim(vector<int> x, vector<int> y) {
 }
 
 // Kruskal's MST
-void make_node_sets(vector<set<int>> &disjointSets, const vector<int> &x) {
-	int size = x.size();
-	
-	for (size_t i = 0; i < size; i++) {
-		set<int> s;
-		s.insert(i);
-		disjointSets.push_back(s);
-	}
-	
-	std::sort(disjointSets.begin(), disjointSets.end(), greater<Edge>());
-}
-
 void build_sorted_cost(const vector<vector<double>> &cost, vector<Edge> &edges, vector<int> x, vector<int> y) {
 	for (size_t i = 0; i < x.size(); i++) {
 		for (size_t p = 0; p < x.size(); p++) {
 			edges.push_back(Edge(i, p, cost[i][p]));
 		}
 	}
+
+	std::sort(edges.begin(), edges.end(), greater<Edge>());
 }
 
-void find() {
+int find(const vector<int> &disjointSets, const int &i) {
+	int parent = disjointSets[i];
 
+	if (parent == -1) {
+		return i;
+	}
+	find(disjointSets, parent);
 }
 
-void union_set() {
+void union_set(vector<int> &disjointSets, const int &parentSetA, const int &parentSetB ) {
+	disjointSets[parentSetA] = parentSetB;
+}
 
+double calc_mst(vector<Edge> &edges) {
+	double sum = 0.0;
+
+	for (size_t i = 0; i < edges.size(); i++) {
+		sum += edges[i].GetWeight();
+	}
+
+	return sum;
 }
 
 double minimum_distance_kruskal(vector<int> x, vector<int> y) {
-	int size = x.size();	
+	int size = x.size();
+	vector<Edge> result;
 	vector<vector<double>> cost(size, vector<double>(size, 0));
 	vector<Edge> edges;
+	build_cost(cost, x, y);
 	build_sorted_cost(cost, edges, x, y);
 
-	vector<set<int>> disjointSets(size);
-	make_node_sets(disjointSets, x);
+	vector<int> disjointSets(size, -1);
 
-	return 0.0;
+	for (int i = edges.size() - 1; i >= 0; i--) {
+		int parentSetA = find(disjointSets, edges[i].GetNodeOne());
+		int parentSetB = find(disjointSets, edges[i].GetNodeTwo());
+		if (parentSetA != parentSetB) {
+			result.push_back(edges[i]);
+			union_set(disjointSets, parentSetA, parentSetB);
+		}
+	}
+		
+	return calc_mst(result);
 }
 
 int main() {

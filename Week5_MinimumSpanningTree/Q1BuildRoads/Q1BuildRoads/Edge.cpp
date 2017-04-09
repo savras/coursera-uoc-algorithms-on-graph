@@ -1,13 +1,13 @@
 #include "Edge.h"
 
-int Edge::GetNodeOne() {
+int Edge::GetNodeOne() const {
 	return _nodeOne;
 }
 
-int Edge::GetNodeTwo() {
+int Edge::GetNodeTwo() const {
 	return _nodeTwo;
 }
 
-double Edge::GetWeight() {
+double Edge::GetWeight() const {
 	return _weight;
 }
