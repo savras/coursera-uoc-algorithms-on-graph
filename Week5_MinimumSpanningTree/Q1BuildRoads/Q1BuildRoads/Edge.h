@@ -2,6 +2,7 @@
  * Data structure to facilitate easy sorting of edge weights for Kruskal's algorithm
  */
 #pragma once
+
 class Edge
 {
 	int _nodeOne;
@@ -9,9 +10,15 @@ class Edge
 	double _weight;
 
 public:
-	Edge(int nodeOne, int nodeTwo, int weight) : _nodeOne(nodeOne), _nodeTwo(nodeTwo), _weight(weight) {};
+	Edge::Edge(const int &nodeOne, const int &nodeTwo, const int &weight)
+		: _nodeOne(nodeOne), _nodeTwo(nodeTwo), _weight(weight) {};
 	int GetNodeOne();
 	int GetNodeTwo();
-	double GetWeight();	
+	double GetWeight();
+
+	bool operator > (const Edge& edge) const
+	{
+		return (_weight > edge._weight);
+	}
 };
 

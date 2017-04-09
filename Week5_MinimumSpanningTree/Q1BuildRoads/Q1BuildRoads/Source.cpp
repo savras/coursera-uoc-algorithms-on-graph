@@ -20,6 +20,7 @@ using std::sqrt;
 using std::make_pair;
 using std::greater;
 using std::set;
+using std::sort;
 
 double length_of_segments(const int &p1, const int &p2, const vector<int> &x, const vector<int> &y) {
 	double weight = sqrt(pow((x[p1] - x[p2]), 2) + pow((y[p1] - y[p2]),2));
@@ -80,14 +81,16 @@ double minimum_distance_prim(vector<int> x, vector<int> y) {
 }
 
 // Kruskal's MST
-void make_set(vector<set<pair<int,int>>> &X, const vector<int> &x, const vector<int> &y) {
+void make_node_sets(vector<set<int>> &disjointSets, const vector<int> &x) {
 	int size = x.size();
 	
 	for (size_t i = 0; i < size; i++) {
-		set<pair<int,int>> s;
-		s.insert(make_pair(x[i], y[i]));
-		X.push_back(s);
+		set<int> s;
+		s.insert(i);
+		disjointSets.push_back(s);
 	}
+	
+	std::sort(disjointSets.begin(), disjointSets.end(), greater<Edge>());
 }
 
 void build_sorted_cost(const vector<vector<double>> &cost, vector<Edge> &edges, vector<int> x, vector<int> y) {
@@ -107,12 +110,13 @@ void union_set() {
 }
 
 double minimum_distance_kruskal(vector<int> x, vector<int> y) {
-	int size = x.size();
-	vector<set<pair<int,int>>> X(size);	// Stores MST result.
+	int size = x.size();	
 	vector<vector<double>> cost(size, vector<double>(size, 0));
-	vector<Edge> edges(size * size);
-	build_sorted_cost(cost, edges, x, y);	
-	make_set(X, x, y);	
+	vector<Edge> edges;
+	build_sorted_cost(cost, edges, x, y);
+
+	vector<set<int>> disjointSets(size);
+	make_node_sets(disjointSets, x);
 
 	return 0.0;
 }
