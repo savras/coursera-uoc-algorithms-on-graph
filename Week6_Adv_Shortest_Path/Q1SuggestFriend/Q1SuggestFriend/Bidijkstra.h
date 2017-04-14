@@ -8,18 +8,18 @@
 #include <limits>
 #include <utility>
 
-typedef std::vector<std::vector<std::vector<int>>> Adj;
+typedef long long Len;
 
 // External vector of size 2 - for forward and backward search.
 // Internal 2-dimensional vector is vector of adjacency lists for each node.
-typedef long long Len;
+typedef std::vector<std::vector<std::vector<int>>> Adj; 
 
 // Vector of two priority queues - for forward and backward searches.
 // Each priority queue stores the closest unprocessed node in its head.
 typedef std::vector<std::priority_queue<std::pair<Len, int>, std::vector<std::pair<Len, int>>, std::greater<std::pair<Len, int>>>> Queue;
 
-// Distances can grow out of int type
 class Bidijkstra {
+	// Distances can grow out of int type
 	const Len INF = std::numeric_limits<Len>::max() / 4;
 
 	// Number of nodes
